@@ -6,7 +6,14 @@ import (
 	"os"
 )
 
+type DepLockStruct struct {
+	URL      string `json:"url"`
+	Revision string `json:"revision"`
+}
+
 type DepStruct struct {
+	URL       string `json:"url"`
+	StorePath string `json:"store_path"`
 }
 
 type DepList struct {

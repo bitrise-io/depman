@@ -15,7 +15,10 @@ func TestDepList(t *testing.T) {
 
 	testDepListContent := `{
 	"deps":[
-		{}
+		{
+			"url": "test/url.url",
+			"store_path": "a/relative/path"
+		}
 	]
 }`
 	testDepList, err := ReadDepListFromReader(strings.NewReader(testDepListContent))
@@ -24,5 +27,12 @@ func TestDepList(t *testing.T) {
 	}
 	if len(testDepList.Deps) != 1 {
 		t.Error("Failed to read 'Deps'")
+	}
+	testDepStruct := testDepList.Deps[0]
+	if testDepStruct.URL != "test/url.url" {
+		t.Error("Failed to read .URL")
+	}
+	if testDepStruct.StorePath != "a/relative/path" {
+		t.Error("Failed to read .StorePath")
 	}
 }
