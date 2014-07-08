@@ -41,6 +41,10 @@ To:
     * if you can retrieve your repository you got all your dependencies in place, no additional requests required, no surprise maintenances on other servers
 
 
+## Limitations
+
+* Right now it requires the unix 'cp' and 'rm' commands (used for safe directory copy and remove).
+
 ## Supported
 
 ### VCS
@@ -52,5 +56,6 @@ VCS (Version control systems) definition on [Wikipedia](http://en.wikipedia.org/
 ## TODO
 
 * VCS versioning, similar to ruby bundler, define the version limits like in Ruby Gemfiles [http://bundler.io/v1.6/gemfile.html](http://bundler.io/v1.6/gemfile.html)
+* support Windows ('cp' and 'rm' doesn't work there)
 * other VCS systems (mercurial, most likely)
 * non VCS dependencies? - like a ZIP file on your server
