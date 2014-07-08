@@ -5,6 +5,9 @@ import (
 	"testing"
 )
 
+// TODO:
+//  - validate input DepList: check if deps are valid (no url or store_path is missing)
+
 func TestDepList(t *testing.T) {
 	t.Log("Test DepList")
 

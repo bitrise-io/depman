@@ -2,15 +2,14 @@ package depman
 
 import (
 	"errors"
-	// "io"
-	"os"
-	"os/exec"
-	"path/filepath"
-	// "strings"
 	"fmt"
 	"github.com/viktorbenei/depman/scanutil"
 	"io/ioutil"
 	"log"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"strings"
 )
 
 func isPathExists(path string) (bool, error) {
@@ -25,6 +24,7 @@ func isPathExists(path string) (bool, error) {
 }
 
 func runCommand(name string, args ...string) error {
+	// fmt.Println("$ ", name, args)
 	cmd := exec.Command(name, args...)
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
@@ -32,7 +32,25 @@ func runCommand(name string, args ...string) error {
 	return cmd.Run()
 }
 
+func runCommandInDirAndGetOutput(workingDir, commandName string, args ...string) ([]byte, error) {
+	// fmt.Println("$ ", commandName, args)
+	cmd := exec.Command(commandName, args...)
+	cmd.Dir = workingDir
+	outputBytes, err := cmd.Output()
+	if err != nil {
+		return []byte{}, err
+	}
+	return outputBytes, nil
+}
+
 func updateDependency(dep DepStruct) (DepLockStruct, error) {
+	if dep.URL == "" {
+		return DepLockStruct{}, errors.New(fmt.Sprintf("Missing URL in dependency: %v", dep))
+	}
+	if dep.StorePath == "" {
+		return DepLockStruct{}, errors.New(fmt.Sprintf("Missing StorePath in dependency: %v", dep))
+	}
+
 	cleanStorePath := filepath.Clean(dep.StorePath)
 
 	absStorePath, err := filepath.Abs(cleanStorePath)
@@ -57,6 +75,13 @@ func updateDependency(dep DepStruct) (DepLockStruct, error) {
 	}
 
 	// get revision hash
+	outBytes, err := runCommandInDirAndGetOutput(tempCloneDir, "git", "log", "-1", `--format=%H`)
+	if err != nil {
+		return DepLockStruct{}, err
+	}
+	revisionHashString := string(outBytes)
+	revisionHashString = strings.TrimSpace(revisionHashString)
+	fmt.Println(" (i) Revision Hash: ", revisionHashString)
 
 	// remove .git and .gitmodules folders
 	dirsToRemove, err := scanutil.ScanForFiles(tempCloneDir, "*.git", "*.gitmodules")
@@ -100,7 +125,7 @@ func updateDependency(dep DepStruct) (DepLockStruct, error) {
 		log.Println(err)
 	}
 
-	deplock := DepLockStruct{URL: dep.URL, Revision: "x"}
+	deplock := DepLockStruct{URL: dep.URL, Revision: revisionHashString}
 	return deplock, nil
 }
 
