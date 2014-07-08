@@ -56,7 +56,7 @@ VCS (Version control systems) definition on [Wikipedia](http://en.wikipedia.org/
 ### Operating Systems
 
 * OS X
-* pretty much every Unix where *cp* and *rm* and *Go* is available (not tested)
+* pretty much every Unix where *cp*, *rm* and *Go* are available (not tested)
 
 ## TODO
 
