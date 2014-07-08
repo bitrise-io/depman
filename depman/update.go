@@ -78,7 +78,7 @@ func updateDependency(dep DepStruct) (DepLockStruct, error) {
 	}
 	if isStorePathExists {
 		log.Println("Removing current version...")
-		if err := os.RemoveAll(absStorePath); err != nil {
+		if err := runCommand("rm", "-rf", absStorePath); err != nil {
 			return DepLockStruct{}, err
 		}
 	}
@@ -104,14 +104,14 @@ func updateDependency(dep DepStruct) (DepLockStruct, error) {
 	return deplock, nil
 }
 
-func PerformUpdateOnDepList(deplist DepList) error {
+func PerformUpdateOnDepList(deplist DepList) ([]DepLockStruct, error) {
 	deplocks := make([]DepLockStruct, len(deplist.Deps), len(deplist.Deps))
 	for idx, aDep := range deplist.Deps {
 		if aDepLock, err := updateDependency(aDep); err != nil {
-			return err
+			return []DepLockStruct{}, err
 		} else {
 			deplocks[idx] = aDepLock
 		}
 	}
-	return nil
+	return deplocks, nil
 }

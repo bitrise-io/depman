@@ -32,7 +32,7 @@ func Test_updateDependency(t *testing.T) {
 func TestPerformUpdateOnDepList(t *testing.T) {
 	t.Log("PerformUpdateOn empty DepList")
 
-	if err := PerformUpdateOnDepList(DepList{}); err != nil {
+	if _, err := PerformUpdateOnDepList(DepList{}); err != nil {
 		t.Error(err)
 	}
 }
