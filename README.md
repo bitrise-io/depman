@@ -53,6 +53,11 @@ VCS (Version control systems) definition on [Wikipedia](http://en.wikipedia.org/
 
 * git
 
+### Operating Systems
+
+* OS X
+* pretty much every Unix where *cp* and *rm* and *Go* is available (not tested)
+
 ## TODO
 
 * VCS versioning, similar to ruby bundler, define the version limits like in Ruby Gemfiles [http://bundler.io/v1.6/gemfile.html](http://bundler.io/v1.6/gemfile.html)
