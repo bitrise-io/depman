@@ -3,6 +3,7 @@ package depman
 import (
 	"encoding/json"
 	"errors"
+	"github.com/viktorbenei/depman/pathutil"
 	"io"
 	"os"
 )
@@ -43,6 +44,46 @@ func ReadDepListFromFile(fpath string) (DepList, error) {
 	defer file.Close()
 
 	return ReadDepListFromReader(file)
+}
+
+func generateFormattedJSONForDepList(deplist DepList) ([]byte, error) {
+	jsonContBytes, err := json.MarshalIndent(deplist, "", "\t")
+	if err != nil {
+		return []byte{}, err
+	}
+	return jsonContBytes, nil
+}
+
+func WriteDepListToFile(fpath string, deplist DepList) error {
+	if fpath == "" {
+		return errors.New("No path provided")
+	}
+
+	isExists, err := pathutil.IsPathExists(fpath)
+	if err != nil {
+		return err
+	}
+	if isExists {
+		return errors.New("DepList file already exists!")
+	}
+
+	file, err := os.Create(fpath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	jsonContBytes, err := generateFormattedJSONForDepList(deplist)
+	if err != nil {
+		return err
+	}
+
+	_, err = file.Write(jsonContBytes)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func generateFormattedJSONForDepLocks(deplocks []DepLockStruct) ([]byte, error) {

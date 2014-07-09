@@ -40,6 +40,28 @@ func TestDepList(t *testing.T) {
 	}
 }
 
+func Test_generateFormattedJSONForDepList(t *testing.T) {
+	t.Log("generateFormattedJSONForDepList")
+
+	deplist := DepList{
+		Deps: []DepStruct{},
+	}
+
+	jsonBytes, err := generateFormattedJSONForDepList(deplist)
+	if err != nil {
+		t.Error("returned error: ", err)
+	}
+	expectedContent := `{
+	"deps": []
+}`
+	jsonString := string(jsonBytes)
+	if jsonString != expectedContent {
+		t.Log("Expected: ", expectedContent)
+		t.Log("Given: ", jsonString)
+		t.Error("Generated JSON doesn't match")
+	}
+}
+
 func Test_generateFormattedJSONForDepLocks(t *testing.T) {
 	t.Log("generateFormattedJSONForDepLocks")
 

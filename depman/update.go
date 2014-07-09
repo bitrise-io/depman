@@ -3,6 +3,7 @@ package depman
 import (
 	"errors"
 	"fmt"
+	"github.com/viktorbenei/depman/pathutil"
 	"github.com/viktorbenei/depman/scanutil"
 	"io/ioutil"
 	"log"
@@ -11,17 +12,6 @@ import (
 	"path/filepath"
 	"strings"
 )
-
-func isPathExists(path string) (bool, error) {
-	_, err := os.Stat(path)
-	if err == nil {
-		return true, nil
-	}
-	if os.IsNotExist(err) {
-		return false, nil
-	}
-	return false, err
-}
 
 func runCommand(name string, args ...string) error {
 	// fmt.Println("$ ", name, args)
@@ -97,7 +87,7 @@ func updateDependency(dep DepStruct) (DepLockStruct, error) {
 	}
 
 	// remove the current version
-	isStorePathExists, err := isPathExists(absStorePath)
+	isStorePathExists, err := pathutil.IsPathExists(absStorePath)
 	if err != nil {
 		return DepLockStruct{}, err
 	}
