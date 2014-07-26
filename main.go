@@ -70,7 +70,12 @@ func doUpdateCommand() error {
 
 func doInitCommand() error {
 	deplist := depman.DepList{
-		Deps: []depman.DepStruct{},
+		Deps: []depman.DepStruct{
+			depman.DepStruct{
+				URL:       "http://repo.url",
+				StorePath: "relative/store/path",
+			},
+		},
 	}
 	err := depman.WriteDepListToFile("./deplist.json", deplist)
 	if err != nil {
