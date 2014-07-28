@@ -41,6 +41,12 @@ To:
     * if you can retrieve your repository you got all your dependencies in place, no additional requests required, no surprise maintenances on other servers
 
 
+## Commands
+
+* init: create a template deplist.json file in the current dir
+* update: checks deplist.json and downloads all the dependencies
+
+
 ## Limitations
 
 * Right now it requires the unix 'cp' and 'rm' commands (used for safe directory copy and remove).
@@ -60,7 +66,14 @@ VCS (Version control systems) definition on [Wikipedia](http://en.wikipedia.org/
 
 ## TODO
 
+* remove dependencies which are not listed anymore
+* option: copy only specific path(s) from the repository (like copy a single file)
 * VCS versioning, similar to ruby bundler, define the version limits like in Ruby Gemfiles [http://bundler.io/v1.6/gemfile.html](http://bundler.io/v1.6/gemfile.html)
 * support Windows ('cp' and 'rm' doesn't work there)
 * other VCS systems (mercurial, most likely)
 * non VCS dependencies? - like a ZIP file on your server
+
+commands:
+
+* list: just list deps
+* add: adds a new dependency
