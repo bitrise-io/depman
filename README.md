@@ -66,8 +66,16 @@ VCS (Version control systems) definition on [Wikipedia](http://en.wikipedia.org/
 
 ## TODO
 
+* `install` command: don't update dependencies, install the exact versions stored in the "lock" file
+* config file changes:
+   * rename the "lock" file - `deplist.json.lock`
+   * actually, we could change the whole file: switch to YML (which is compatible with JSON, so it's backward compatible)
+   * option to group dependencies (e.g. used only for `development` or for `test`; or by category: `app`, `web`, ...)
 * remove dependencies which are not listed anymore
 * option: copy only specific path(s) from the repository (like copy a single file)
+
+Later:
+
 * VCS versioning, similar to ruby bundler, define the version limits like in Ruby Gemfiles [http://bundler.io/v1.6/gemfile.html](http://bundler.io/v1.6/gemfile.html)
 * support Windows ('cp' and 'rm' doesn't work there)
 * other VCS systems (mercurial, most likely)
