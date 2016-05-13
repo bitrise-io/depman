@@ -3,7 +3,7 @@ package depman
 import (
 	"encoding/json"
 	"errors"
-	"github.com/viktorbenei/depman/pathutil"
+	"github.com/bitrise-tools/depman/pathutil"
 	"io"
 	"os"
 )

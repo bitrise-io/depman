@@ -1,14 +1,14 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
-	"github.com/viktorbenei/depman/depman"
+	"github.com/bitrise-tools/depman/depman"
 	"log"
 	"os"
 )
 
+// Command ...
 type Command struct {
 	Name  string
 	Usage string
@@ -43,7 +43,7 @@ func usage() {
 func readDepListFile() (depman.DepList, error) {
 	deplist, err := depman.ReadDepListFromFile("./deplist.json")
 	if err != nil {
-		return depman.DepList{}, errors.New(fmt.Sprintf("Failed to load deplist: %s", err))
+		return depman.DepList{}, fmt.Errorf("Failed to load deplist: %s", err)
 	}
 	return deplist, nil
 }
@@ -57,12 +57,12 @@ func doUpdateCommand() error {
 	log.Printf("Updating %d dependencies...\n", len(deplist.Deps))
 	deplocks, err := depman.PerformUpdateOnDepList(deplist)
 	if err != nil {
-		return errors.New(fmt.Sprintf("Update failed: %s", err))
+		return fmt.Errorf("Update failed: %s", err)
 	}
 	// write DepLocks
 	log.Println("Writing deplock...")
 	if err := depman.WriteDepLocksToFile("./deplock.json", deplocks); err != nil {
-		return errors.New(fmt.Sprintf("Failed to write deplock.json: %s", err))
+		return fmt.Errorf("Failed to write deplock.json: %s", err)
 	}
 	log.Println("Update finished!")
 	return nil

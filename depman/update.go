@@ -3,8 +3,8 @@ package depman
 import (
 	"errors"
 	"fmt"
-	"github.com/viktorbenei/depman/pathutil"
-	"github.com/viktorbenei/depman/scanutil"
+	"github.com/bitrise-tools/depman/pathutil"
+	"github.com/bitrise-tools/depman/scanutil"
 	"io/ioutil"
 	"log"
 	"os"
@@ -104,7 +104,7 @@ func updateDependency(dep DepStruct) (DepLockStruct, error) {
 		return DepLockStruct{}, err
 	}
 
-	err = runCommand("cp", "-r", tempCloneDir+"/", absStorePath+"/")
+	err = runCommand("rsync", "-ah", tempCloneDir+"/", absStorePath+"/")
 	if err != nil {
 		return DepLockStruct{}, err
 	}
