@@ -61,16 +61,26 @@ VCS (Version control systems) definition on [Wikipedia](http://en.wikipedia.org/
 
 ### Operating Systems
 
+#### Tested
 * OS X
-* pretty much every Unix where *cp*, *rm* and *Go* are available (not tested)
+* Ubuntu
+
+#### Other, not tested
+
+* pretty much every Unix where *cp*, *rm*, *rscyn* and *Go* are available (not tested)
 
 ## TODO
 
 * `install` command: don't update dependencies, install the exact versions stored in the "lock" file
+* `edit` mode : add/init `git` to the dependency so that it can be updated and pushed back into the original
+  * there could be a new mode of `depman` too, where it includes `.git` by default, for easy contribution back to the original repo - but this mode would not include the source code in the repository as `git` will ignore subdirs with initialized `.git`, so `depman install` could/should be used for this mode to get the dependencies
+  * `depman edit start` would init the `git` dirs for the dependencies (or `depman edit start X` for a specific dep)
+  * and `depman edit done` would remove the `.git` dirs
 * config file changes:
    * rename the "lock" file - `deplist.json.lock`
    * actually, we could change the whole file: switch to YML (which is compatible with JSON, so it's backward compatible)
    * option to group dependencies (e.g. used only for `development` or for `test`; or by category: `app`, `web`, ...)
+   * or rename both: `depman.yml` and `depman.yml.lock`
 * remove dependencies which are not listed anymore
 * option: copy only specific path(s) from the repository (like copy a single file)
 
