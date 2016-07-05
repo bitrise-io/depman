@@ -11,8 +11,8 @@ import (
 // updateCmd represents the update command
 var updateCmd = &cobra.Command{
 	Use:   "update",
-	Short: "",
-	Long:  ``,
+	Short: "Update all dependencies",
+	Long:  `Update all dependencies`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		deplist, err := depman.ReadDepListFile()
 		if err != nil {
