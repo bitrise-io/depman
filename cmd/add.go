@@ -24,6 +24,12 @@ var addCmd = &cobra.Command{
 		localPath := args[1]
 		log.Println("URL:", gitCloneURL)
 		log.Println("Local path:", localPath)
+
+		// deplist, err := ReadDepListFile()
+		// if err != nil {
+		// 	return fmt.Errorf("Failed to read deplist from file: %s", err)
+		// }
+
 		return nil
 	},
 }

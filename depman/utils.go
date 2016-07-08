@@ -4,9 +4,13 @@ import (
 	"fmt"
 )
 
+const (
+	deplistPath = "./deplist.json"
+)
+
 // ReadDepListFile ...
 func ReadDepListFile() (DepList, error) {
-	deplist, err := ReadDepListFromFile("./deplist.json")
+	deplist, err := ReadDepListFromFile(deplistPath)
 	if err != nil {
 		return DepList{}, fmt.Errorf("Failed to load deplist: %s", err)
 	}
